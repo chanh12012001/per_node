@@ -4,11 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "start": "nodemon index.js"
-=======
     "start": "node index.js"
->>>>>>> 99bb1155ed792e23c0a0b660d90e0bee2ebec072
   },
   "author": "Chanh Pham",
   "license": "ISC",
