@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "Chanh Pham",
   "license": "ISC",
@@ -13,7 +13,9 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.2",
-    "mongoose-unique-validator": "^3.0.0"
+    "mongoose-unique-validator": "^3.0.0",
+    "otp-generator": "^4.0.0",
+    "twilio": "^3.74.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
