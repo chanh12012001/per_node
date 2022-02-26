@@ -30,7 +30,7 @@ var functions = {
 
     register: (req, res, next) => {
         if (phoneNumber === null) {
-            return res.json({message: "Unverified phone number"})
+            return res.status(400).json({message: "Unverified phone number"})
         } else {
             const { password } = req.body
             const salt = bcryptjs.genSaltSync(10)
