@@ -10,16 +10,7 @@ const key = "verysecretkey"; // Key for cryptograpy. Keep it secret
 const client = require('twilio')(SmsConfig.ACCOUNT_SID, SmsConfig.AUTH_TOKEN);
  
 async function register(params, phoneNumber, callback) {
-    var email = params.email
-    const user = await User.findOne({email});
-
-    if (user != null) {
-        console.log(user.email)
-        return callback({
-            message: 'Email already exists.'
-        })
-    } else {
-        User.create({
+    User.create({
             phoneNumber: phoneNumber,
             name: '',
             dateOfBirth: '',
@@ -34,7 +25,6 @@ async function register(params, phoneNumber, callback) {
         .catch((error) => {
             return callback(error)
         })
-    } 
 }
 
 async function login({phoneNumber, password}, callback) {
