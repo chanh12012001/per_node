@@ -19,7 +19,7 @@ var functions = {
     verifyOTP: (req, res, next) => {
         userService.verifyOTP(req.body, (error, results) => {
           if (error) {
-            return next(error);
+            return res.status(400).json(error);
           } else {
               phoneNumber = req.body.phone
               console.log(phoneNumber)
