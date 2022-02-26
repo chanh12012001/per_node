@@ -104,7 +104,9 @@ async function createNewOTP(params, callback) {
     let [hashValue, expires] = params.hash.split(".");
     // Check if expiry time has passed
     let now = Date.now();
-    if (now > parseInt(expires)) return callback("OTP Expired");
+    if (now > parseInt(expires)) return callback({
+        message: 'OTP Expired'
+    });
     // Calculate new hash with the same key and the same algorithm
     let data = `${params.phone}.${params.otp}.${expires}`;
     let newCalculatedHash = crypto
@@ -115,7 +117,7 @@ async function createNewOTP(params, callback) {
     if (newCalculatedHash === hashValue) {
       return callback(null, "Success");
     }
-    return callback("Invalid OTP");
+    return callback({message: 'Invalid OTP'});
   }
   
 
