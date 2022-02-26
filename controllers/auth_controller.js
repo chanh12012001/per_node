@@ -7,7 +7,7 @@ var functions = {
     otpRegister: (req, res, next) => {
         userService.createNewOTP(req.body, (error, results) => {
           if (error) {
-            return res.status(401).json(error);
+            return res.status(406).json(error);
           }
           return res.status(200).send({
             message: "Success",
