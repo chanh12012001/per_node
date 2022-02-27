@@ -11,6 +11,8 @@ router.post('/register', authController.register)
 
 router.post('/login', authController.login)
 
+router.put('/forgotPassword', authController.forgotPassword)
+
 router.get('/logout', authController.logout)
 
 router.get('/get-info', Token.verifyToken ,authController.getInfo)

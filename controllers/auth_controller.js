@@ -22,7 +22,6 @@ var functions = {
             return res.status(400).json(error);
           } else {
               phoneNumber = req.body.phone
-              console.log(phoneNumber)
               res.json({message: 'success'})
           }
         });
@@ -53,6 +52,17 @@ var functions = {
         userService.login({phoneNumber, password}, (error, result) => {
             if (error) {
                 return res.status(404).json(error)
+            }
+            return res.status(200).json(result) 
+        })
+    },
+
+    forgotPassword: (req, res, next) => {
+        const { phoneNumber } = req.body
+    
+        userService.forgotPassword(phoneNumber, (error, result) => {
+            if (error) {
+                return res.status(400).json(error)
             }
             return res.status(200).json(result) 
         })

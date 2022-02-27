@@ -2,6 +2,7 @@ const User = require('../models/user_model')
 const SmsConfig = require('../config/sms.config')
 const bcrypt = require('bcryptjs')
 const tokenController = require('../controllers/verify_token')
+const bcryptjs = require("bcryptjs");
 
 const otpGenerator = require("otp-generator");
 const crypto = require("crypto");
@@ -10,7 +11,8 @@ const key = "verysecretkey"; // Key for cryptograpy. Keep it secret
 const client = require('twilio')(SmsConfig.ACCOUNT_SID, SmsConfig.AUTH_TOKEN);
  
 async function register(params, phoneNumber, callback) {
-    User.create({
+    
+        User.create({
             phoneNumber: phoneNumber,
             name: '',
             dateOfBirth: '',
@@ -25,6 +27,7 @@ async function register(params, phoneNumber, callback) {
         .catch((error) => {
             return callback(error)
         })
+    
 }
 
 async function login({phoneNumber, password}, callback) {
@@ -70,7 +73,6 @@ async function createNewOTP(params, callback) {
       const hash = crypto.createHmac("sha256", key).update(data).digest("hex"); // creating SHA256 hash of the data
       const fullHash = `${hash}.${expires}`; // Hash.expires, format to send to the user
       // you have to implement the function to send SMS yourself. For demo purpose. let's assume it's called sendSMS
-      //sendSMS(phone, `Your OTP is ${otp}. it will expire in 5 minutes`);
     
       console.log(`Your OTP is ${otp}. it will expire in 5 minutes`);    
       
@@ -78,12 +80,12 @@ async function createNewOTP(params, callback) {
       const to = `+84${params.phone}`
       const text = `Your OTP is ${otp}. it will expire in 5 minutes`
       client.messages
-  .create({
-     body: text,
-     from: from, 
-     to: to
-   })
-  .then(message => console.log(message.sid));
+        .create({
+        body: text,
+        from: from, 
+        to: to
+        })
+        .then(message => console.log(message.sid));
 
       return callback(null, fullHash);
     }
@@ -109,11 +111,61 @@ async function createNewOTP(params, callback) {
     }
     return callback({message: 'Invalid OTP'});
   }
-  
 
+  async function forgotPassword(params, callback) {
+
+    var phoneNumber = params
+    var userId;
+    
+    const user = await User.findOne({phoneNumber});
+
+    if (user == null) {
+        return callback({
+            message: 'Số điện thoại chưa đăng ký'
+        })
+    } else {
+
+        userId = user._id;
+        // Generate a 4 digit numeric OTP
+    var passOtp = otpGenerator.generate(6, {
+        upperCaseAlphabets: false,
+        lowerCaseAlphabets: false,
+        specialChars: false
+      });
+
+      console.log(passOtp)
+
+      const from  = "+19036367833"
+      const to = `+84${phoneNumber}`
+      const text = `Mật khẩu mới của bạn là ${passOtp}. Vui lòng không cung cấp cho bất kỳ ai.`
+      client.messages
+        .create({
+            body: text,
+            from: from, 
+            to: to
+        })
+        .then(message => console.log(message.sid));
+  
+    const salt = bcryptjs.genSaltSync(10)
+    passOtp = bcryptjs.hashSync(passOtp, salt)
+        
+    console.log(passOtp)
+    User.findByIdAndUpdate(userId, {
+        password: passOtp
+    }).then(data => {
+        console.log('Update thành công')
+    }).catch (err => {
+        console.log('Lỗi server')
+    })
+    
+    return callback(null, {message: 'Success'});
+    }
+  }
+  
 module.exports = {
     createNewOTP,
     verifyOTP,
     register,
-    login
+    login,
+    forgotPassword,
 }
