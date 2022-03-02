@@ -24,7 +24,7 @@ async function createNewTask(params, callback) {
 async function getAllTasks(params, callback) {
     Task.find({userId: params})
     .then((tasks) => {
-        return callback(null, {message: 'success', tasks})
+        return callback(null, {tasks})
     })
     .catch((error) => {
         return callback(error)
