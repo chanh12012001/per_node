@@ -11,7 +11,7 @@ var functions = {
     },
 
     getAllTasks: (req, res, next) => {
-        var { userId } = req.params
+        var { userId } = req.body
         taskService.getAllTasks(userId, (error, results) => {
             if (error) {
                 return res.status(500).json({error});
