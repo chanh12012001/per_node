@@ -8,6 +8,16 @@ var functions = {
             }
             return res.status(200).json(results);
         });
+    },
+
+    getAllTasks: (req, res, next) => {
+        var { userId } = req.params
+        taskService.getAllTasks(userId, (error, results) => {
+            if (error) {
+                return res.status(500).json({error});
+            }
+            return res.status(200).json(results);
+        });
     }
 }
 

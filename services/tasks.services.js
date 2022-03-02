@@ -21,6 +21,17 @@ async function createNewTask(params, callback) {
     })
 }
 
+async function getAllTasks(params, callback) {
+    Task.find({userId: params})
+    .then((tasks) => {
+        return callback(null, {message: 'success', tasks})
+    })
+    .catch((error) => {
+        return callback(error)
+    })
+}
+
 module.exports = {
     createNewTask,
+    getAllTasks,
 }
