@@ -11,10 +11,21 @@ var functions = {
     },
 
     getAllTasks: (req, res, next) => {
-        var userId = req.headers['userid']
+        var userId = req.headers['userid']; 
         taskService.getAllTasks(userId, (error, results) => {
             if (error) {
                 return res.status(500).json({error});
+            }
+            return res.status(200).json(results);
+        });
+    },
+
+    deleteTask: (req, res, next) => {
+        var taskId = req.params.id; 
+        console.log(taskId);
+        taskService.deleteTask(taskId, (error, results) => {
+            if (error) {
+                return res.status(500).json(error);
             }
             return res.status(200).json(results);
         });

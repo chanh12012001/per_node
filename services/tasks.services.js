@@ -31,7 +31,18 @@ async function getAllTasks(params, callback) {
     })
 }
 
+async function deleteTask(params, callback) {
+    Task.deleteOne({_id: params})
+    .then((tasks) => {
+        return callback(null, {message: 'Thao tác thành công'})
+    })
+    .catch((error) => {
+        return callback({message: 'Lỗi. Vui lòng thử lại!'})
+    })
+}
+
 module.exports = {
     createNewTask,
     getAllTasks,
+    deleteTask,
 }
