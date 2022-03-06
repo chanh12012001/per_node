@@ -8,4 +8,6 @@ router.get("/getAllTasks", taskController.getAllTasks);
 
 router.delete("/deleteTask/:id", taskController.deleteTask);
 
+router.put("/updateTaskCompletion/:id", taskController.updateTaskCompletion);
+
 module.exports = router 

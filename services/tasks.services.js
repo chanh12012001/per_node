@@ -41,8 +41,20 @@ async function deleteTask(params, callback) {
     })
 }
 
+async function updateTaskCompletion(params, callback) {
+    Task.findByIdAndUpdate(params, {
+        isCompleted: 1
+    }).then((tasks) => {
+        return callback(null, {message: 'Thao tác thành công'})
+    })
+    .catch((error) => {
+        return callback({message: 'Lỗi. Vui lòng thử lại!'})
+    })
+}
+
 module.exports = {
     createNewTask,
     getAllTasks,
     deleteTask,
+    updateTaskCompletion,
 }
