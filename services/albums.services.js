@@ -13,6 +13,17 @@ async function createNewAlbum(params, callback) {
     })
 }
 
+async function getAllAlbums(params, callback) {
+    Album.find({userId: params})
+    .then((albums) => {
+        return callback(null, {albums})
+    })
+    .catch((error) => {
+        return callback(error)
+    })
+}
+
 module.exports = {
     createNewAlbum,
+    getAllAlbums
 }

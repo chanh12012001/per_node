@@ -4,4 +4,6 @@ const router = express.Router()
 
 router.post("/createNewAlbum", albumController.createNewAlbum);
 
+router.get("/getAllAlbums", albumController.getAllAlbums);
+
 module.exports = router 
