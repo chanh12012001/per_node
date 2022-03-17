@@ -23,7 +23,18 @@ async function getAllAlbums(params, callback) {
     })
 }
 
+async function deleteAlbum(params, callback) {
+    Album.deleteOne({_id: params})
+    .then((msg) => {
+        return callback(null, {message: 'Thao tác thành công'})
+    })
+    .catch((error) => {
+        return callback({message: 'Lỗi. Vui lòng thử lại!'})
+    })
+}
+
 module.exports = {
     createNewAlbum,
-    getAllAlbums
+    getAllAlbums,
+    deleteAlbum
 }
