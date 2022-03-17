@@ -33,8 +33,20 @@ async function deleteAlbum(params, callback) {
     })
 }
 
+async function updateAlbum(paramsId, albumBody ,callback) {
+    Album.findByIdAndUpdate(paramsId, {
+        name: albumBody.name
+    }).then((_) => {
+        return callback(null, {message: 'Thao tác thành công'})
+    })
+    .catch((_) => {
+        return callback({message: 'Lỗi. Vui lòng thử lại!'})
+    })
+}
+
 module.exports = {
     createNewAlbum,
     getAllAlbums,
-    deleteAlbum
+    deleteAlbum,
+    updateAlbum
 }
