@@ -10,7 +10,6 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use('/', routes)
 app.use('/', routesTask)
-app.use('/', routesTask)
 app.use('/', routesAlbum)
 
 module.exports = app
