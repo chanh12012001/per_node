@@ -12,7 +12,7 @@ var functions = {
 
     getAllSpending: (req, res, next) => {
         var userId = req.headers['userid']; 
-        taskService.getAllSpending(userId, (error, results) => {
+        spendingService.getAllSpending(userId, (error, results) => {
             if (error) {
                 return res.status(500).json({error});
             }
