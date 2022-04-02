@@ -19,8 +19,8 @@ var functions = {
             return res.status(200).json(results);
         });
     },
-    
-     deleteAlbum: (req, res, next) => {
+
+    deleteAlbum: (req, res, next) => {
         var albumId = req.params.id; 
         albumService.deleteAlbum(albumId, (error, results) => {
             if (error) {
@@ -29,8 +29,8 @@ var functions = {
             return res.status(200).json(results);
         });
     },
-    
-     updateAlbum: (req, res, next) => {
+
+    updateAlbum: (req, res, next) => {
         var albumId = req.params.id; 
         var albumBody = req.body;
         albumService.updateAlbum(albumId, albumBody, (error, results) => {

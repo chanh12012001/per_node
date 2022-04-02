@@ -10,4 +10,4 @@ router.delete("/deleteAlbum/:id", albumController.deleteAlbum);
 
 router.put("/updateAlbum/:id", albumController.updateAlbum);
 
-module.exports = router 
+module.exports = router  

@@ -2,7 +2,7 @@ const express = require("express");
 const routes = require('./routes/user.routes')
 const routesTask = require('./routes/task.routes')
 const routesAlbum = require('./routes/album.routes')
-const routesSpending = require('./routes/spending.routes')
+const routesImagesAlbum = require('./routes/images_album.routes')
 
 const app = express()
 
@@ -11,7 +11,8 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use('/', routes)
 app.use('/', routesTask)
-app.use('/', routesSpending)
+app.use('/', routesTask)
 app.use('/', routesAlbum)
+app.use('/', routesImagesAlbum)
 
 module.exports = app
