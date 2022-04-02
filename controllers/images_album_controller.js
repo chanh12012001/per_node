@@ -13,6 +13,16 @@ var functions = {
             return res.status(200).json(results);
         }) 
     },  
+    
+    getAllImagesByAlbumId: (req, res, next) => {
+        var albumId = req.headers['albumid']; 
+        imagesAlbumService.getAllImagesByAlbumId(albumId, (error, results) => {
+            if (error) {
+                return res.status(500).json({error});
+            }
+            return res.status(200).json(results);
+        });
+    },
 
     deleteImagesOfAlbum: (req, res) => {
         var imageIds = []
