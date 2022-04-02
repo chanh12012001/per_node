@@ -13,7 +13,7 @@ var functions = {
             return res.status(200).json(results);
         }) 
     },  
-    
+
     getAllImagesByAlbumId: (req, res, next) => {
         var albumId = req.headers['albumid']; 
         imagesAlbumService.getAllImagesByAlbumId(albumId, (error, results) => {

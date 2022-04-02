@@ -44,4 +44,5 @@ async function getAllImagesByAlbumId(params, callback) {
 
 module.exports = {
     uploadImagesToAlbum,
+    getAllImagesByAlbumId
 }
