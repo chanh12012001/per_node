@@ -32,6 +32,16 @@ async function uploadImagesToAlbum(albumId, files, callback) {
     })  
 }
 
+async function getAllImagesByAlbumId(params, callback) {
+    Image.find({albumId: params})
+    .then((images) => {
+        return callback(null, {images})
+    })
+    .catch((error) => {
+        return callback(error)
+    })
+}
+
 module.exports = {
     uploadImagesToAlbum,
 }
