@@ -25,9 +25,14 @@ var functions = {
     },
 
     deleteImagesOfAlbum: (req, res) => {
-        var imageIds = []
-        imageIds = req.headers['imageid'];
-        console.log(imageIds)
+        var imageIds = req.params.ids.split(',')
+        
+        imagesAlbumService.deleteImagesOfAlbum(imageIds,  (error, results) => {
+            if (error) {
+                return res.status(500).json({error});
+            }
+            return res.status(200).json(results);
+        });
     }
 }
 

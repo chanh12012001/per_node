@@ -42,7 +42,25 @@ async function getAllImagesByAlbumId(params, callback) {
     })
 }
 
+async function deleteImagesOfAlbum(imageIds, callback) {
+
+    for (var imageId of imageIds) {
+        Image.findOne({_id: imageId}).then((image) => {
+             cloudinary.cloudinary.v2.uploader.destroy(image.cloudinaryId)
+        })
+    }  
+
+    Image.deleteMany({_id: {$in: imageIds}})
+    .then((_) => {
+        return callback(null, {message: 'Thao tác thành công'})
+    })
+    .catch((error) => {
+        return callback({message: 'Lỗi. Vui lòng thử lại!'})
+    })
+}
+
 module.exports = {
     uploadImagesToAlbum,
-    getAllImagesByAlbumId
+    getAllImagesByAlbumId,
+    deleteImagesOfAlbum
 }

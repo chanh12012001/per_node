@@ -7,6 +7,7 @@ router.post("/upload-images-album", upload.array('image'), imagesAlbumController
 
 router.get("/get-all-images-by-albumid", imagesAlbumController.getAllImagesByAlbumId)
 
-router.delete("/delete-images-of-album", imagesAlbumController.deleteImagesOfAlbum)
+router.delete("/delete-images-of-album/:ids", imagesAlbumController.deleteImagesOfAlbum)
 
 module.exports = router  
+ 
