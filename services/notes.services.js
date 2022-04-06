@@ -44,15 +44,15 @@ async function getAllNotes(userId, callback) {
     })
 }
 
-// async function deleteTask(params, callback) {
-//     Task.deleteOne({_id: params})
-//     .then((tasks) => {
-//         return callback(null, {message: 'Thao tác thành công'})
-//     })
-//     .catch((error) => {
-//         return callback({message: 'Lỗi. Vui lòng thử lại!'})
-//     })
-// }
+async function deleteNote(params, callback) {
+    Note.deleteOne({_id: params})
+    .then((tasks) => {
+        return callback(null, {message: 'Thao tác thành công'})
+    })
+    .catch((error) => {
+        return callback({message: 'Lỗi. Vui lòng thử lại!'})
+    })
+}
 
 // async function updateTaskCompletion(params, callback) {
 //     Task.findByIdAndUpdate(params, {
@@ -68,4 +68,5 @@ async function getAllNotes(userId, callback) {
 module.exports = {
     createNewNote,
     getAllNotes,
+    deleteNote,
 }

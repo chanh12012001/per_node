@@ -22,6 +22,16 @@ var functions = {
             return res.status(200).json(results);
         });
     },
+
+    deleteNote: (req, res, next) => {
+        var noteId = req.params.id; 
+        noteService.deleteNote(noteId, (error, results) => {
+            if (error) {
+                return res.status(500).json(error);
+            }
+            return res.status(200).json(results);
+        });
+    },
 } 
 
 module.exports = functions

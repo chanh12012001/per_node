@@ -7,4 +7,6 @@ router.post("/create-new-note", upload.single('image'), noteController.createNew
 
 router.get("/get-all-notes", noteController.getAllNotes);
 
+router.delete("/deleteNote/:id", noteController.deleteNote);
+
 module.exports = router
