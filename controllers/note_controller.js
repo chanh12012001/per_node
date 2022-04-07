@@ -32,6 +32,18 @@ var functions = {
             return res.status(200).json(results);
         });
     },
+
+    updateNote: (req, res, next) => {
+        var noteId = req.params.id; 
+        var noteBody = req.body;
+        var file = req.file
+        noteService.updateNote(noteId, noteBody, file, (error, results) => {
+            if (error) {
+                return res.status(500).json(error);
+            }
+            return res.status(200).json(results);
+        });
+    }
 } 
 
 module.exports = functions

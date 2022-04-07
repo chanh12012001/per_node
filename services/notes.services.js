@@ -54,19 +54,45 @@ async function deleteNote(params, callback) {
     })
 }
 
-// async function updateTaskCompletion(params, callback) {
-//     Task.findByIdAndUpdate(params, {
-//         isCompleted: 1
-//     }).then((tasks) => {
-//         return callback(null, {message: 'Thao tác thành công'})
-//     })
-//     .catch((error) => {
-//         return callback({message: 'Lỗi. Vui lòng thử lại!'})
-//     })
-// }
+async function updateNote(noteId, body, file ,callback) {
+    var result;
+    const uploader = async (path) => await cloudinary.uploads(path, 'per-note/images-note')
+    if (file != undefined || file != null) {
+        result = await uploader(file.path)
+    }
+    Note.findById(noteId) 
+    .then((note) => {  
+        if (file != undefined || file != null) {
+            cloudinary.cloudinary.v2.uploader.destroy(note.cloudinaryId)
+            const data = {
+                title: body.title || note.title,
+                content: body.content || note.content,
+                imageUrl: result.url,
+                cloudinaryId: result.id
+            }
+            Note.findByIdAndUpdate(noteId, data, {new: true}).then((note) => {         
+                return callback(null, {message: 'Thao tác thành công', note})
+            })
+        } else {
+            const data = {
+                title: body.title || note.title,
+                content: body.content || note.content,
+                imageUrl: note.imageUrl,
+                cloudinaryId: note.cloudinaryId,
+            }
+            Note.findByIdAndUpdate(noteId, data, {new: true}).then((note) => {         
+                return callback(null, {message: 'Thao tác thành công', note})
+            })
+        }
+    })
+    .catch ((err) => {
+        return callback({message: 'Lỗi. Vui lòng thử lại!'})
+    })
+}
 
 module.exports = {
     createNewNote,
     getAllNotes,
     deleteNote,
+    updateNote,
 }

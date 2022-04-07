@@ -9,4 +9,6 @@ router.get("/get-all-notes", noteController.getAllNotes);
 
 router.delete("/deleteNote/:id", noteController.deleteNote);
 
+router.put("/update-note/:id",  upload.single('image'), noteController.updateNote);
+
 module.exports = router
