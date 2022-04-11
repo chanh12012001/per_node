@@ -5,6 +5,7 @@ const routesAlbum = require('./routes/album.routes')
 const routesImagesAlbum = require('./routes/images_album.routes')
 const routesNote = require('./routes/note.routes')
 const routesHealthyIndex = require('./routes/healthy_index.routes')
+const routesHealthyIndexProperties = require('./routes/healthy_index_properties.routes')
 
 const app = express()
 
@@ -18,5 +19,6 @@ app.use('/', routesAlbum)
 app.use('/', routesImagesAlbum)
 app.use('/', routesNote)
 app.use('/', routesHealthyIndex)
+app.use('/', routesHealthyIndexProperties)
 
 module.exports = app
