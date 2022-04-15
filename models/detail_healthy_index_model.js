@@ -10,7 +10,7 @@ const DetailHealthyIndexSchema = new Schema({
         type: String,
     },
     indexValue: {
-        type: Number,
+        type: String,
     },
     healthyIndexId: {
         type: String,
