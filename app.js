@@ -5,13 +5,12 @@ const routesAlbum = require('./routes/album.routes')
 const routesImagesAlbum = require('./routes/images_album.routes')
 const routesNote = require('./routes/note.routes')
 const routesHealthyIndex = require('./routes/healthy_index.routes')
-const routesHealthyIndexProperties = require('./routes/healthy_index_properties.routes')
+const routesDetailHealthyIndex = require('./routes/detail_healthy_index.routes')
 
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-
 app.use('/', routes)
 app.use('/', routesTask)
 app.use('/', routesTask)
@@ -19,6 +18,6 @@ app.use('/', routesAlbum)
 app.use('/', routesImagesAlbum)
 app.use('/', routesNote)
 app.use('/', routesHealthyIndex)
-app.use('/', routesHealthyIndexProperties)
+app.use('/', routesDetailHealthyIndex)
 
 module.exports = app
