@@ -23,6 +23,12 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  avatarUrl: {
+    type: String,
+  },
+  cloudinaryId: {
+    type: String,
+  },
 });
 
 UserSchema.set("toJSON", {

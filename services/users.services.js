@@ -3,6 +3,7 @@ const SmsConfig = require('../config/sms.config')
 const bcrypt = require('bcryptjs')
 const tokenController = require('../controllers/verify_token')
 const bcryptjs = require("bcryptjs");
+const cloudinary = require("../config/cloudinary.config")
 
 const otpGenerator = require("otp-generator");
 const crypto = require("crypto");
@@ -18,7 +19,9 @@ async function register(params, phoneNumber, callback) {
             dateOfBirth: '',
             sex: '',
             email: '',
-            password: params.password    
+            password: params.password,
+            avatarUrl: '',
+            cloudinaryId: ''    
         })
         .then((data) => {
             const token = tokenController.generateAccessToken(data._id)
@@ -161,6 +164,45 @@ async function createNewOTP(params, callback) {
     return callback(null, {message: 'Success'});
     }
   }
+
+  async function updateAvatar(userId, file, callback) {   
+    User.findOne({_id: userId}).then((user) => {
+        if (user.cloudinaryId != "") {
+            cloudinary.cloudinary.v2.uploader.destroy(user.cloudinaryId)
+        }
+    })
+      const result = await cloudinary.uploads(file.path, 'per-note/avatars');
+
+      let user = {
+          avatarUrl: result.url,
+          cloudinaryId: result.id,   
+      }
+  
+      User.findByIdAndUpdate(userId, user, {new: true})
+      .then((user) => {
+          return callback(null, {user})
+      })
+      .catch((error) => {
+          return callback(error)
+      }) 
+  }
+    
+  async function updateUserInfo(body, callback) {   
+    
+      let user = {
+          name: body.name,
+          sex: body.sex,
+          email: body.email   
+      }
+  
+      User.findByIdAndUpdate(body.userId, user, {new: true})
+      .then((user) => {
+          return callback(null, {user})
+      })
+      .catch((error) => {
+          return callback(error)
+      }) 
+  }
   
 module.exports = {
     createNewOTP,
@@ -168,4 +210,6 @@ module.exports = {
     register,
     login,
     forgotPassword,
+    updateAvatar,
+    updateUserInfo,
 }
